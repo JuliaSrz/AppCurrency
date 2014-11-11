@@ -1,20 +1,45 @@
 package model;
 
+import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 
-public class CurrencySet {
-    
-    private List<Currency> currencySet = new LinkedList<>();
-    
-    public CurrencySet() {
-        currencySet.add(loadCurrency());
+public class CurrencySet implements Iterable {
+
+    public static LinkedList<Currency> currencySet;
+
+    public CurrencySet(LinkedList<Currency> currencySet) {
+        this.currencySet = currencySet;
     }
-    
-    class void Iterator() {
-            for (Currency CurrencySetValues : currencySet) {
-                
-            }
+
+    public void add(Currency currency) {
+        if (currencySet.contains(currency)) {
+            currencySet.add(currency);
         }
-        
     }
+
+    @Override
+    public Iterator iterator() {
+        return new Iterator() {
+
+            int i = 0;
+
+            @Override
+            public boolean hasNext() {
+                return currencySet.size() > i;
+            }
+
+            @Override
+            public Object next() {
+                i++;
+                return currencySet.get(i);
+            }
+
+            @Override
+            public void remove() {
+            }
+
+
+        };
+    }
+
+}

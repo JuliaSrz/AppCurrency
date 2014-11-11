@@ -2,9 +2,12 @@ package model;
 
 public class Currency {
     
-    private String code, name, symbol;
+    private final String code, name, symbol;
     
-    public Currency() {
+    public Currency(String code, String name, String symbol) {
+        this.code = code;
+        this.name = name;
+        this.symbol = symbol;
     }
 
     public String getName() {
@@ -18,7 +21,5 @@ public class Currency {
     public String getSymbol() {
         return symbol;
     }  
-    
-    
-    
+       
 }

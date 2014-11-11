@@ -6,31 +6,14 @@ import model.CurrencySet;
 public class CurrencySetLoader {
 
     private static String name, code, symbol;
+    private final static Currency Euro = new Currency ("EUR", "Euro", "€");
+    private final static Currency AmericanDollar = new Currency ("USD", "American Dollar", "$");
+    private final static Currency Pound = new Currency ("GBP", "Pound", "£");
     
     private static void loadCurrency(){
-        add(Euro());
-        add(Pound());
-        add(AmericanDollar());
+            CurrencySet.currencySet.add(Euro);
+            CurrencySet.currencySet.add(AmericanDollar);
+            CurrencySet.currencySet.add(Pound);
     }
-    
-    
-    private static CurrencySetLoader.loadCurrency Euro() {
-        name = "Euro";
-        code = "EUR";
-        symbol = "€";
-    }
-
-    private static CurrencySetLoader.loadCurrency Pound() {
-        name = "Pound";
-        code = "GBP";
-        symbol = "£";
-    }
-
-    private static CurrencySetLoader.loadCurrency AmericanDollar() {
-        name = "AmericanDollar";
-        code = "USD";
-        symbol = "€";
-    }
-
 
 }
