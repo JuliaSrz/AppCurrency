@@ -8,5 +8,14 @@ public class Exchange {
         this.currency = currency;
         this.money = money;
     }
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public Money getMoney() {
+        return money;
+    }
+    
     
 }
