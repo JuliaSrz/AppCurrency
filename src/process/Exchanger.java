@@ -10,8 +10,9 @@ public class Exchanger {
     private Fraction rate;
     
     public Money exchange(Money from, ExchangeRate to){
-       // to = new Money (from.getQuantity()*rate.getRate(), rate.getTo());
-        Money prueba = new Money(new Fraction(3,4), new Currency("LOL", "ok", "€"));
+        Fraction fraction = new Fraction(3, 4);
+        Currency currency = new Currency("LOL", "ok", "%");
+        Money prueba = new Money(fraction, currency);
         return prueba;
     }
     

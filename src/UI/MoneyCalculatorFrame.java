@@ -5,23 +5,34 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import model.Currency;
+import model.ExchangeRate;
+import model.Fraction;
+import model.Money;
+import process.Exchanger;
 
 public class MoneyCalculatorFrame extends JFrame{
 
-    public MoneyCalculatorFrame() {
-        setTitle("MoneyCalculator");
-        setDefaultCloseOperation(EXIT_ON_CLOSE); //si no al dar a la x se sigue ejecutando aunque la ventana este cerrada
-        setMinimumSize(new Dimension(300, 300));
-        createComponents();
-        setVisible(true); //siempre al final porque si no se renderiza sin cargar todos los componentes
-   }
+    JLabel label = new JLabel("");
 
-    private void createComponents() {
+    
+    public MoneyCalculatorFrame() {
+        setVisible(true); //siempre al final porque si no se renderiza sin cargar todos los componentes
+        setTitle("MoneyCalculator");
+        createWidgets();
+        setDefaultCloseOperation(EXIT_ON_CLOSE); //si no al dar a la x se sigue ejecutando aunque la ventana este cerrada
+        setMinimumSize(new Dimension(400, 200));
+        setResizable(false);
+    }
+
+    private void createWidgets() {
+        //this.getContentFrame().add(createCalculateButton(), BorderLayout.SOUTH);
         add(createExchangeDialog());
+        add(label);
         add(createToolbar(), BorderLayout.SOUTH); //O lo pone en el centro por defecto
     }
 
@@ -45,7 +56,7 @@ public class MoneyCalculatorFrame extends JFrame{
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Calculating...");
+                System.out.print(MoneyDisplay.getTextField().getText());
             }
         });
         return button;
@@ -63,6 +74,15 @@ public class MoneyCalculatorFrame extends JFrame{
             }
         });
         return button;
+    }
+    
+    private void operationResult(){
+        Fraction fraction = new Fraction(3, 4);
+        Currency currency = new Currency("LOL", "ok", "%");
+        Money prueba = new Money(fraction, currency);
+        ExchangeRate exchangeRate = new ExchangeRate(currency, currency, new Fraction(3, 4));
+        Exchanger exchanger = new Exchanger(prueba, exchangeRate);
+        label.setText(exchanger.getQuantity());
     }
 
 }

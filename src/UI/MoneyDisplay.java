@@ -5,6 +5,8 @@ import javax.swing.JTextField;
 
 class MoneyDisplay extends JPanel {
 
+    private static JTextField amount;
+
     public MoneyDisplay() {
         super();
         add(createTextField());
@@ -12,7 +14,12 @@ class MoneyDisplay extends JPanel {
     }
 
     private JTextField createTextField() {
-        return new JTextField(10);
+        return amount = new JTextField(10);
     }
+
+    public static JTextField getTextField() {
+        return amount;
+    }
+    
     
 }
