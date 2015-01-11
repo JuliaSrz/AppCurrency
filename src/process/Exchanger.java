@@ -2,17 +2,16 @@ package process;
 
 import model.Currency;
 import model.ExchangeRate;
-import model.Fraction;
 import model.Money;
 
 public class Exchanger {
     private Money to;
-    private Fraction rate;
+    private double rate;
     
     public Money exchange(Money from, ExchangeRate to){
-        Fraction fraction = new Fraction(3, 4);
+        double doble = 0.5;
         Currency currency = new Currency("LOL", "ok", "%");
-        Money prueba = new Money(fraction, currency);
+        Money prueba = new Money(doble, currency);
         return prueba;
     }
     

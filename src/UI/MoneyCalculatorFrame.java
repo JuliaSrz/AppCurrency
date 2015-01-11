@@ -11,14 +11,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import model.Currency;
 import model.ExchangeRate;
-import model.Fraction;
 import model.Money;
-import process.Exchanger;
+import control.ExchangeOperation;
 
 public class MoneyCalculatorFrame extends JFrame{
 
-    JLabel label = new JLabel("");
-
+    JLabel initialLabel;
     
     public MoneyCalculatorFrame() {
         setVisible(true); //siempre al final porque si no se renderiza sin cargar todos los componentes
@@ -31,9 +29,9 @@ public class MoneyCalculatorFrame extends JFrame{
 
     private void createWidgets() {
         //this.getContentFrame().add(createCalculateButton(), BorderLayout.SOUTH);
-        add(createExchangeDialog());
-        add(label);
-        add(createToolbar(), BorderLayout.SOUTH); //O lo pone en el centro por defecto
+        add(createExchangeDialog(),BorderLayout.NORTH);
+        add(createResultLine(), BorderLayout.CENTER);
+        add(createToolbar(), BorderLayout.SOUTH);
     }
 
     private JPanel createExchangeDialog() {
@@ -42,9 +40,16 @@ public class MoneyCalculatorFrame extends JFrame{
         panel.add(new ExchangeDialog());
         return panel;
     }
+    
+    private JPanel createResultLine() {
+        JPanel panelBelow = new JPanel(new FlowLayout());
+        initialLabel = createResultOutput("hola");
+        panelBelow.add(initialLabel);
+        return panelBelow;
+    }
 
     private JPanel createToolbar() {
-        JPanel toolBar = new JPanel(new FlowLayout(FlowLayout.RIGHT)); //rellena de dcha a izda
+        JPanel toolBar = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         toolBar.add(createCalculateButton());
         toolBar.add(createCancelButton());
         return toolBar;
@@ -56,7 +61,8 @@ public class MoneyCalculatorFrame extends JFrame{
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.print(MoneyDisplay.getTextField().getText());
+                //control.ExchangeOperation.execute();
+                operationResult();
             }
         });
         return button;
@@ -75,14 +81,22 @@ public class MoneyCalculatorFrame extends JFrame{
         });
         return button;
     }
+
+    private JLabel createResultOutput(String resultOutput) {
+        JLabel label = new JLabel(resultOutput);
+        return label;
+    }
     
     private void operationResult(){
-        Fraction fraction = new Fraction(3, 4);
         Currency currency = new Currency("LOL", "ok", "%");
-        Money prueba = new Money(fraction, currency);
-        ExchangeRate exchangeRate = new ExchangeRate(currency, currency, new Fraction(3, 4));
-        Exchanger exchanger = new Exchanger(prueba, exchangeRate);
-        label.setText(exchanger.getQuantity());
+        Money prueba = new Money(0.4, currency);
+        ExchangeRate exchangeRate = new ExchangeRate(currency, currency, 0.3);
+        Double valor = Double.parseDouble(MoneyDisplay.getTextField().getText());
+        
+        initialLabel.setText(Double.toString(exchangeRate.getRate()*valor));
+        
+        
     }
+
 
 }

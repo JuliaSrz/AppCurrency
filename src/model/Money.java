@@ -2,15 +2,15 @@ package model;
 
 public class Money {
 
-    private final Fraction quantity;
+    private final double quantity;
     private final Currency currency;
     
-    public Money(Fraction quantity, Currency currency) {
+    public Money(double quantity, Currency currency) {
         this.quantity = quantity;
         this.currency = currency;
     }
 
-    public Fraction getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 

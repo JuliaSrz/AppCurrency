@@ -1,7 +1,8 @@
 package control;
 
+
 public class ExchangeOperation {
-    public void execute(){
+    public static void execute(){
         
     }
 }

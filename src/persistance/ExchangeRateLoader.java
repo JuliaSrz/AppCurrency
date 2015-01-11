@@ -2,15 +2,14 @@ package persistance;
 
 import model.Currency;
 import model.Exchange;
-import model.Fraction;
 
 public class ExchangeRateLoader {
  
     private Currency from, to;
-    private Fraction rate;
+    private double rate;
 
-    public Fraction load(Currency from, Currency to){
-        rate = new Fraction (1,2);
+    public double load(Currency from, Currency to){
+        rate = 0.5;
         return rate;
     }
 }
