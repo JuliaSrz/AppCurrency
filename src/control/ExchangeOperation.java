@@ -1,8 +1,9 @@
 package control;
-
+import UI.MoneyCalculatorFrame;
 
 public class ExchangeOperation {
-    public static void execute(){
         
+    public void execute() {
     }
+    
 }

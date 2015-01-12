@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -12,17 +13,18 @@ import javax.swing.JPanel;
 import model.Currency;
 import model.ExchangeRate;
 import model.Money;
-import control.ExchangeOperation;
 
 public class MoneyCalculatorFrame extends JFrame{
 
-    JLabel initialLabel;
+    public static JLabel initialLabel;
+    private Map<String,ActionListener> listeners;
+
     
     public MoneyCalculatorFrame() {
-        setVisible(true); //siempre al final porque si no se renderiza sin cargar todos los componentes
+        setVisible(true);
         setTitle("MoneyCalculator");
         createWidgets();
-        setDefaultCloseOperation(EXIT_ON_CLOSE); //si no al dar a la x se sigue ejecutando aunque la ventana este cerrada
+        setDefaultCloseOperation(EXIT_ON_CLOSE); 
         setMinimumSize(new Dimension(400, 200));
         setResizable(false);
     }
@@ -75,8 +77,6 @@ public class MoneyCalculatorFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 MoneyCalculatorFrame.this.dispose();
-                //accede al metodo superior y cierra. dispose solo vale porque no colisiona con action listener
-                //pero asi como que se ve mas claro, rite?
             }
         });
         return button;
@@ -87,6 +87,10 @@ public class MoneyCalculatorFrame extends JFrame{
         return label;
     }
     
+    public void register(String command, ActionListener actionListener) {
+        this.listeners.put(command, actionListener);
+    }
+    ////
     private void operationResult(){
         Currency currency = new Currency("LOL", "ok", "%");
         Money prueba = new Money(0.4, currency);
