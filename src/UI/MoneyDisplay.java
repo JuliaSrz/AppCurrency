@@ -6,11 +6,12 @@ import javax.swing.JTextField;
 public class MoneyDisplay extends JPanel {
 
     private static JTextField amount;
-
+    private static ExchangeDialog exchangeDialog;
+    
     public MoneyDisplay() {
         super();
         add(createTextField());
-        add(new ExchangeDialog());
+        add(createExchangeDialog());
     }
 
     private JTextField createTextField() {
@@ -21,5 +22,12 @@ public class MoneyDisplay extends JPanel {
         return amount;
     }
     
+    private ExchangeDialog createExchangeDialog() {
+        return exchangeDialog = new ExchangeDialog();
+    }
+
+    public static ExchangeDialog getExchangeDialog() {
+        return exchangeDialog;
+    }
     
 }

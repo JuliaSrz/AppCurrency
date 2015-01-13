@@ -11,11 +11,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import model.Currency;
+import model.Exchange;
 import model.ExchangeRate;
 import model.Money;
 
 public class MoneyCalculatorFrame extends JFrame{
 
+    public ExchangeDialog exchangeDialog;
+    public MoneyDisplay moneyDisplay;
     public static JLabel initialLabel;
     private Map<String,ActionListener> listeners;
 
@@ -30,7 +33,6 @@ public class MoneyCalculatorFrame extends JFrame{
     }
 
     private void createWidgets() {
-        //this.getContentFrame().add(createCalculateButton(), BorderLayout.SOUTH);
         add(createExchangeDialog(),BorderLayout.NORTH);
         add(createResultLine(), BorderLayout.CENTER);
         add(createToolbar(), BorderLayout.SOUTH);
@@ -38,8 +40,10 @@ public class MoneyCalculatorFrame extends JFrame{
 
     private JPanel createExchangeDialog() {
         JPanel panel = new JPanel(new FlowLayout());
-        panel.add(new MoneyDisplay());
-        panel.add(new ExchangeDialog());
+        exchangeDialog = new ExchangeDialog();
+        moneyDisplay = new MoneyDisplay();
+        panel.add(moneyDisplay);
+        panel.add(exchangeDialog);
         return panel;
     }
     
@@ -59,18 +63,18 @@ public class MoneyCalculatorFrame extends JFrame{
 
     private JButton createCalculateButton() {
         JButton button = new JButton("Calculate");
-        button.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //control.ExchangeOperation.execute();
-                operationResult();
-            }
-        });
+        button.addActionListener(createListener("Calcular"));
         return button;
     }
 
-    private JButton createCancelButton() {
+    private JButton createCancelButton(){
+        JButton button = new JButton("Close");
+        button.addActionListener(createListener("Close"));
+        return button;
+    }
+    
+    //Hacer este como el otro
+    /*private JButton createCancelButton() {
         JButton button = new JButton("Close");
         button.addActionListener(new ActionListener() {
 
@@ -80,8 +84,18 @@ public class MoneyCalculatorFrame extends JFrame{
             }
         });
         return button;
-    }
+    }*/
 
+    private ActionListener createListener(final String command) {
+        return new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listeners.get(command).actionPerformed(e);
+            }
+        };
+    }
+    
     private JLabel createResultOutput(String resultOutput) {
         JLabel label = new JLabel(resultOutput);
         return label;
@@ -90,7 +104,32 @@ public class MoneyCalculatorFrame extends JFrame{
     public void register(String command, ActionListener actionListener) {
         this.listeners.put(command, actionListener);
     }
-    ////
+
+    public Exchange getExchange() {
+        return new Exchange(getToCurrency(), new Money(getAmount(), getFromCurrency()));
+    }
+    
+    public double getAmount() {
+        return Double.parseDouble(MoneyDisplay.getTextField().getText());
+    }
+    
+    public Currency getFromCurrency() {
+        return MoneyDisplay.getExchangeDialog().getCurrency();
+    }
+    
+    public Currency getToCurrency() {
+        return exchangeDialog.getCurrency();
+    }
+    
+    public ExchangeDialog getDialog(){
+        return exchangeDialog;
+    }
+    
+    public MoneyDisplay getMoney(){
+        return moneyDisplay;
+    }
+    
+////
     private void operationResult(){
         Currency currency = new Currency("LOL", "ok", "%");
         Money prueba = new Money(0.4, currency);
@@ -98,9 +137,10 @@ public class MoneyCalculatorFrame extends JFrame{
         Double valor = Double.parseDouble(MoneyDisplay.getTextField().getText());
         
         initialLabel.setText(Double.toString(exchangeRate.getRate()*valor));
-        
+        //System.out.print(this.getExchange().getCurrency().getCode());
         
     }
+
 
 
 }

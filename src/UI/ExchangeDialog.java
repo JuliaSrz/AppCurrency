@@ -2,16 +2,23 @@ package UI;
 
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
+import model.Currency;
 
-class ExchangeDialog extends JPanel {
-
+public class ExchangeDialog extends JPanel {
+    
+    JComboBox<Currency> combo = new JComboBox(new String[] {"EUR", "USD", "GBP"}); 
+    
     public ExchangeDialog() {
         super();
         add(createComboBox());
     }
 
     private JComboBox createComboBox() {
-        return new JComboBox(new String[] {"EUR", "USD", "GBP"}); //Habria que cargarlas de la bbdd
+        return combo;
     }
     
+    public Currency getCurrency() {
+        return combo.getItemAt(combo.getSelectedIndex());
+    }
+
 }
