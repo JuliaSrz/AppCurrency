@@ -2,14 +2,19 @@ package UI;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import model.CurrencySet;
 
 public class MoneyDisplay extends JPanel {
 
     private static JTextField amount;
     private static ExchangeDialog exchangeDialog;
+    private final CurrencySet currencySet;
     
-    public MoneyDisplay() {
+    
+    public MoneyDisplay(CurrencySet currencySet) {
         super();
+        this.currencySet = currencySet;
+        
         add(createTextField());
         add(createExchangeDialog());
     }
@@ -23,7 +28,7 @@ public class MoneyDisplay extends JPanel {
     }
     
     private ExchangeDialog createExchangeDialog() {
-        return exchangeDialog = new ExchangeDialog();
+        return exchangeDialog = new ExchangeDialog(currencySet);
     }
 
     public static ExchangeDialog getExchangeDialog() {

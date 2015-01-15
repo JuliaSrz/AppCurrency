@@ -2,14 +2,18 @@ package persistance;
 
 import model.Currency;
 import model.Exchange;
+import model.ExchangeRate;
 
 public class ExchangeRateLoader {
  
     private Currency from, to;
     private double rate;
 
-    public double load(Currency from, Currency to){
+    public ExchangeRate load(Currency from, Currency to){
         rate = 0.5;
-        return rate;
+        this.from = from;
+        this.to = to;
+        return new ExchangeRate(from, to, rate);
     }
+
 }

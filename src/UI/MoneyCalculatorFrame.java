@@ -5,31 +5,37 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import model.Currency;
+import model.CurrencySet;
 import model.Exchange;
 import model.ExchangeRate;
 import model.Money;
 
 public class MoneyCalculatorFrame extends JFrame{
-
+    
+    private final CurrencySet currencySet;
     public ExchangeDialog exchangeDialog;
     public MoneyDisplay moneyDisplay;
     public static JLabel initialLabel;
     private Map<String,ActionListener> listeners;
 
     
-    public MoneyCalculatorFrame() {
-        setVisible(true);
-        setTitle("MoneyCalculator");
-        createWidgets();
+    public MoneyCalculatorFrame(CurrencySet currencySet) {
         setDefaultCloseOperation(EXIT_ON_CLOSE); 
+        setTitle("MoneyCalculator");
+        setVisible(true);
+        createWidgets();
         setMinimumSize(new Dimension(400, 200));
-        setResizable(false);
+        //setResizable(false);
+        this.listeners = new HashMap<>();
+        this.currencySet = currencySet;
+
     }
 
     private void createWidgets() {
@@ -40,8 +46,8 @@ public class MoneyCalculatorFrame extends JFrame{
 
     private JPanel createExchangeDialog() {
         JPanel panel = new JPanel(new FlowLayout());
-        exchangeDialog = new ExchangeDialog();
-        moneyDisplay = new MoneyDisplay();
+        exchangeDialog = new ExchangeDialog(currencySet);
+        moneyDisplay = new MoneyDisplay(currencySet);
         panel.add(moneyDisplay);
         panel.add(exchangeDialog);
         return panel;
@@ -62,7 +68,7 @@ public class MoneyCalculatorFrame extends JFrame{
     }
 
     private JButton createCalculateButton() {
-        JButton button = new JButton("Calculate");
+        JButton button = new JButton("Calcular");
         button.addActionListener(createListener("Calcular"));
         return button;
     }
@@ -73,19 +79,6 @@ public class MoneyCalculatorFrame extends JFrame{
         return button;
     }
     
-    //Hacer este como el otro
-    /*private JButton createCancelButton() {
-        JButton button = new JButton("Close");
-        button.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                MoneyCalculatorFrame.this.dispose();
-            }
-        });
-        return button;
-    }*/
-
     private ActionListener createListener(final String command) {
         return new ActionListener() {
 
@@ -121,8 +114,8 @@ public class MoneyCalculatorFrame extends JFrame{
         return exchangeDialog.getCurrency();
     }
     
-    public ExchangeDialog getDialog(){
-        return exchangeDialog;
+    public MoneyCalculatorFrame getFrame() {
+        return this;
     }
     
     public MoneyDisplay getMoney(){

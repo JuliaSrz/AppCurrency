@@ -9,10 +9,9 @@ public class Exchanger {
     private double rate;
     
     public Money exchange(Money from, ExchangeRate to){
-        double doble = 0.5;
-        Currency currency = new Currency("LOL", "ok", "%");
-        Money prueba = new Money(doble, currency);
-        return prueba;
+        rate = to.getRate();
+        Money money = new Money(rate*from.getQuantity(), to.getTo());
+        return money;
     }
     
 }

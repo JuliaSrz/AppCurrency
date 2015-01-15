@@ -5,18 +5,23 @@ import java.util.LinkedList;
 
 public class CurrencySet implements Iterable {
 
-    public static LinkedList<Currency> currencySet;
+    public static LinkedList<Currency> currencyList;
 
-    public CurrencySet(LinkedList<Currency> currencySet) {
-        this.currencySet = currencySet;
+    public CurrencySet(LinkedList<Currency> currencyList) {
+        CurrencySet.currencyList = currencyList;
     }
 
+    //Uhhhm ??? !?
     public void add(Currency currency) {
-        if (currencySet.contains(currency)) {
-            currencySet.add(currency);
+        if (!currencyList.contains(currency)) {
+            currencyList.add(currency);
         }
     }
 
+    public Currency[] getItems() {
+        return currencyList.toArray(new Currency[currencyList.size()]);
+    }
+    
     @Override
     public Iterator iterator() {
         return new Iterator() {
@@ -25,13 +30,13 @@ public class CurrencySet implements Iterable {
 
             @Override
             public boolean hasNext() {
-                return currencySet.size() > i;
+                return currencyList.size() > i;
             }
 
             @Override
             public Object next() {
                 i++;
-                return currencySet.get(i);
+                return currencyList.get(i-1);
             }
 
             @Override

@@ -10,12 +10,13 @@ public class Application {
 
     public static void main(String[] args) {
         CurrencySet currencySet = new CurrencySetLoader().load();
-        final MoneyCalculatorFrame moneyCalculatorFrame = new MoneyCalculatorFrame();
+        
+        final MoneyCalculatorFrame moneyCalculatorFrame = new MoneyCalculatorFrame(currencySet);
         
         moneyCalculatorFrame.register("Calcular", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-                new ExchangeOperation(moneyCalculatorFrame.getDialog()).execute();
+                new ExchangeOperation(moneyCalculatorFrame.getFrame()).execute();
             }
             
         });
