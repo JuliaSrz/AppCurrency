@@ -1,6 +1,5 @@
 package process;
 
-import model.Currency;
 import model.ExchangeRate;
 import model.Money;
 

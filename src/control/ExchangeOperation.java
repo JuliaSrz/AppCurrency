@@ -8,20 +8,23 @@ public class ExchangeOperation {
     
     private final MoneyCalculatorFrame dialog;
     private ExchangeRate exchangeRate;
-
+    private String stringResult;
+    
     public ExchangeOperation(MoneyCalculatorFrame dialog) {
         this.dialog = dialog;
     }
     
     public void execute() {
-        /*System.out.println(dialog.getExchange().getMoney().getQuantity());
-        System.out.println(dialog.getExchange().getMoney().getCurrency().getCode());
-        System.out.println(dialog.getExchange().getCurrency().getCode());*/
         exchangeRate = new ExchangeRateLoader().load(dialog.getExchange().getMoney().getCurrency(), dialog.getExchange().getCurrency());
-        System.out.println((new Exchanger().exchange(dialog.getExchange().getMoney(), exchangeRate)).getQuantity());
-        System.out.println((new Exchanger().exchange(dialog.getExchange().getMoney(), exchangeRate)).getCurrency());
         
-        //hay que ponerlo en la label supongo
+        //la programación funcional es bonita, si te cabe en la pantalla
+        //stringResult = String.valueOf((new Exchanger().exchange(dialog.getExchange().getMoney(), exchangeRate)).getQuantity()) + " " +((new Exchanger().exchange(dialog.getExchange().getMoney(), exchangeRate)).getCurrency());
+       
+        stringResult = String.valueOf((new Exchanger().exchange(dialog.getExchange().getMoney(), exchangeRate)).getQuantity());
+        stringResult+= " " +((new Exchanger().exchange(dialog.getExchange().getMoney(), exchangeRate)).getCurrency());
+        MoneyCalculatorFrame.createResultLine(stringResult);
+        
+        
     }   
 
     

@@ -1,5 +1,6 @@
 package UI;
 
+import java.util.LinkedList;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import model.Currency;
@@ -9,7 +10,6 @@ public class ExchangeDialog extends JPanel {
 
     private final CurrencySet currencySet;
     JComboBox<Currency> combo;
-
     
     public ExchangeDialog(CurrencySet currencySet) {
         super();
@@ -17,10 +17,11 @@ public class ExchangeDialog extends JPanel {
         add(createComboBox());
     }
 
-    private JComboBox createComboBox() {
-        Currency[] prueba = currencySet.currencyList.toArray(new Currency[currencySet.currencyList.size()]);
-
+    public JComboBox createComboBox() {
+        Currency[] prueba = CurrencySet.currencyList.toArray(new Currency[CurrencySet.currencyList.size()]);
         combo = new JComboBox<>(prueba);
+        
+        //System.out.println(currencySet.getItem(3));
         //combo = new JComboBox<>(currencySet.getItems());
         //WHY THE FUCK!?
         

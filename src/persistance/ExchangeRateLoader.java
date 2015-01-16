@@ -1,7 +1,6 @@
 package persistance;
 
 import model.Currency;
-import model.Exchange;
 import model.ExchangeRate;
 
 public class ExchangeRateLoader {

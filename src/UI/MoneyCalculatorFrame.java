@@ -1,46 +1,46 @@
 package UI;
 
-import java.awt.BorderLayout;
+import java.util.Map;
+import java.util.HashMap;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.Map;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JFrame;
+import javax.swing.JButton;
+import model.Money;
+import model.Exchange;
 import model.Currency;
 import model.CurrencySet;
-import model.Exchange;
-import model.ExchangeRate;
-import model.Money;
 
-public class MoneyCalculatorFrame extends JFrame{
-    
+public class MoneyCalculatorFrame extends JFrame {
+
     private final CurrencySet currencySet;
-    public ExchangeDialog exchangeDialog;
-    public MoneyDisplay moneyDisplay;
-    public static JLabel initialLabel;
-    private Map<String,ActionListener> listeners;
+    private ExchangeDialog exchangeDialog;
+    private MoneyDisplay moneyDisplay;
+    private static JLabel initialLabel;
+    private static JPanel panelBelow;
+    private final Map<String, ActionListener> listeners;
 
-    
     public MoneyCalculatorFrame(CurrencySet currencySet) {
-        setDefaultCloseOperation(EXIT_ON_CLOSE); 
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("MoneyCalculator");
         setVisible(true);
+        initialLabel = new JLabel();
+        panelBelow = new JPanel(new FlowLayout());
         createWidgets();
         setMinimumSize(new Dimension(400, 200));
-        //setResizable(false);
+        setResizable(false);
         this.listeners = new HashMap<>();
         this.currencySet = currencySet;
-
     }
 
     private void createWidgets() {
-        add(createExchangeDialog(),BorderLayout.NORTH);
-        add(createResultLine(), BorderLayout.CENTER);
+        add(createExchangeDialog(), BorderLayout.NORTH);
+        add(createResultLine("Por favor, introduzca los datos."), BorderLayout.CENTER);
         add(createToolbar(), BorderLayout.SOUTH);
     }
 
@@ -51,13 +51,6 @@ public class MoneyCalculatorFrame extends JFrame{
         panel.add(moneyDisplay);
         panel.add(exchangeDialog);
         return panel;
-    }
-    
-    private JPanel createResultLine() {
-        JPanel panelBelow = new JPanel(new FlowLayout());
-        initialLabel = createResultOutput("hola");
-        panelBelow.add(initialLabel);
-        return panelBelow;
     }
 
     private JPanel createToolbar() {
@@ -73,12 +66,12 @@ public class MoneyCalculatorFrame extends JFrame{
         return button;
     }
 
-    private JButton createCancelButton(){
+    private JButton createCancelButton() {
         JButton button = new JButton("Close");
         button.addActionListener(createListener("Close"));
         return button;
     }
-    
+
     private ActionListener createListener(final String command) {
         return new ActionListener() {
 
@@ -88,12 +81,13 @@ public class MoneyCalculatorFrame extends JFrame{
             }
         };
     }
-    
-    private JLabel createResultOutput(String resultOutput) {
-        JLabel label = new JLabel(resultOutput);
-        return label;
+
+    public static JPanel createResultLine(String string) {
+        initialLabel.setText(string);
+        panelBelow.add(initialLabel);
+        return panelBelow;
     }
-    
+
     public void register(String command, ActionListener actionListener) {
         this.listeners.put(command, actionListener);
     }
@@ -101,39 +95,24 @@ public class MoneyCalculatorFrame extends JFrame{
     public Exchange getExchange() {
         return new Exchange(getToCurrency(), new Money(getAmount(), getFromCurrency()));
     }
-    
+
     public double getAmount() {
         return Double.parseDouble(MoneyDisplay.getTextField().getText());
     }
-    
+
     public Currency getFromCurrency() {
         return MoneyDisplay.getExchangeDialog().getCurrency();
     }
-    
+
     public Currency getToCurrency() {
         return exchangeDialog.getCurrency();
     }
-    
+
     public MoneyCalculatorFrame getFrame() {
         return this;
     }
-    
-    public MoneyDisplay getMoney(){
+
+    public MoneyDisplay getMoney() {
         return moneyDisplay;
     }
-    
-////
-    private void operationResult(){
-        Currency currency = new Currency("LOL", "ok", "%");
-        Money prueba = new Money(0.4, currency);
-        ExchangeRate exchangeRate = new ExchangeRate(currency, currency, 0.3);
-        Double valor = Double.parseDouble(MoneyDisplay.getTextField().getText());
-        
-        initialLabel.setText(Double.toString(exchangeRate.getRate()*valor));
-        //System.out.print(this.getExchange().getCurrency().getCode());
-        
-    }
-
-
-
 }

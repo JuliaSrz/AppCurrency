@@ -2,11 +2,10 @@ package model;
 
 public class ExchangeRate {
 
-    Currency from;
-    Currency to;
-    Double rate;     //cambia a fraction
+    private final Currency from, to;
+    double rate;
 
-    public ExchangeRate(Currency from, Currency to, Double rate) {
+    public ExchangeRate(Currency from, Currency to, double rate) {
         this.from = from;
         this.to = to;
         this.rate = rate;
