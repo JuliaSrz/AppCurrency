@@ -16,10 +16,7 @@ public class ExchangeOperation {
     
     public void execute() {
         exchangeRate = new ExchangeRateLoader().load(dialog.getExchange().getMoney().getCurrency(), dialog.getExchange().getCurrency());
-        
-        //la programación funcional es bonita, si te cabe en la pantalla
-        //stringResult = String.valueOf((new Exchanger().exchange(dialog.getExchange().getMoney(), exchangeRate)).getQuantity()) + " " +((new Exchanger().exchange(dialog.getExchange().getMoney(), exchangeRate)).getCurrency());
-       
+               
         stringResult = String.valueOf((new Exchanger().exchange(dialog.getExchange().getMoney(), exchangeRate)).getQuantity());
         stringResult+= " " +((new Exchanger().exchange(dialog.getExchange().getMoney(), exchangeRate)).getCurrency());
         dialog.createResultLine(stringResult);
