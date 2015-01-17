@@ -6,7 +6,7 @@ import process.Exchanger;
 
 public class ExchangeOperation {
     
-    private final MoneyCalculatorFrame dialog;
+    private MoneyCalculatorFrame dialog;
     private ExchangeRate exchangeRate;
     private String stringResult;
     
@@ -22,7 +22,7 @@ public class ExchangeOperation {
        
         stringResult = String.valueOf((new Exchanger().exchange(dialog.getExchange().getMoney(), exchangeRate)).getQuantity());
         stringResult+= " " +((new Exchanger().exchange(dialog.getExchange().getMoney(), exchangeRate)).getCurrency());
-        MoneyCalculatorFrame.createResultLine(stringResult);
+        dialog.createResultLine(stringResult);
         
         
     }   

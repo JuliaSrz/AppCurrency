@@ -5,10 +5,18 @@ import java.util.LinkedList;
 
 public class CurrencySet implements Iterable {
 
-    public static LinkedList<Currency> currencyList;
+    private LinkedList<Currency> currencyList;
 
     public CurrencySet(LinkedList<Currency> currencyList) {
-        CurrencySet.currencyList = currencyList;
+        this.currencyList = currencyList;
+    }
+
+    public LinkedList<Currency> getCurrencyList() {
+        return currencyList;
+    }
+
+    public Currency[] getItems(){
+        return currencyList.toArray(new Currency[currencyList.size()]);
     }
 
     public void add(Currency currency) {
@@ -16,23 +24,10 @@ public class CurrencySet implements Iterable {
             currencyList.add(currency);
         }
     }
-
-    public int getItem(int lil){
-        return lil;
-    }
-    /*public Currency[] getItems() {
-//        Currency[] currencycosa = currencyList.toArray(new Currency[currencyList.size()]);
-//        for (Currency currencycosa1 : currencycosa) {
-//            System.out.println(currencycosa1.getCode());
-//        }
-        Currency AmericanDollar = new Currency ("USD", "American Dollar", "$");
-        Currency Pound = new Currency ("GBP", "Pound", "£");
-        Currency Euro = new Currency ("EUR", "Euro", "€");
-        
-        Currency[] curr = {AmericanDollar, Pound, Euro};
-        return curr;
-    }*/
     
+    public int getItem(int i){
+        return i;
+    }
     @Override
     public Iterator iterator() {
         return new Iterator() {
@@ -47,13 +42,12 @@ public class CurrencySet implements Iterable {
             @Override
             public Object next() {
                 i++;
-                return currencyList.get(i-1);
+                return currencyList.get(i - 1);
             }
 
             @Override
             public void remove() {
             }
-
 
         };
     }

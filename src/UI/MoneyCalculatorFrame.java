@@ -18,11 +18,11 @@ import model.CurrencySet;
 
 public class MoneyCalculatorFrame extends JFrame {
 
-    private final CurrencySet currencySet;
+    private CurrencySet currencySet;
     private ExchangeDialog exchangeDialog;
     private MoneyDisplay moneyDisplay;
-    private static JLabel initialLabel;
-    private static JPanel panelBelow;
+    private JLabel initialLabel;
+    private JPanel panelBelow;
     private final Map<String, ActionListener> listeners;
 
     public MoneyCalculatorFrame(CurrencySet currencySet) {
@@ -31,11 +31,12 @@ public class MoneyCalculatorFrame extends JFrame {
         setVisible(true);
         initialLabel = new JLabel();
         panelBelow = new JPanel(new FlowLayout());
+        this.currencySet = currencySet;
         createWidgets();
+        this.listeners = new HashMap<>();
         setMinimumSize(new Dimension(400, 200));
         setResizable(false);
-        this.listeners = new HashMap<>();
-        this.currencySet = currencySet;
+
     }
 
     private void createWidgets() {
@@ -82,7 +83,7 @@ public class MoneyCalculatorFrame extends JFrame {
         };
     }
 
-    public static JPanel createResultLine(String string) {
+    public JPanel createResultLine(String string) {
         initialLabel.setText(string);
         panelBelow.add(initialLabel);
         return panelBelow;

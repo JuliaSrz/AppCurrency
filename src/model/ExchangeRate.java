@@ -3,7 +3,7 @@ package model;
 public class ExchangeRate {
 
     private final Currency from, to;
-    double rate;
+    private double rate;
 
     public ExchangeRate(Currency from, Currency to, double rate) {
         this.from = from;
